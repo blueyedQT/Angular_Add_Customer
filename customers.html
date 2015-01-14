@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+<head>
+	<title>Customer</title>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.28/angular.min.js"></script>
+</head>
+<body>
+	<div ng-app="myApp">
+		<div ng-controller="Customers">
+			<h1>Add a new customer</h1>
+			<p>Customer Name: <input type="text" placeholder="Customer Name"></p>
+			<button>Add</button>
+
+			<input type="text" placeholder="Search">
+
+			<table>
+				<thead>
+					<tr>
+						<th>Customer Name</th>
+						<th>Created Date</th>
+						<th>Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat = "customer in customers">
+						<td>{{ customer.name }}</td>
+						<td>{{ customer.created_date }}</td>
+						<td><a href="#"><button>Remove</button></a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<script>
+		var myApp = angular.module('myApp', []);
+		myApp.factory('CustomerFactory', function(){
+			var customers =[
+				{name: 'Katrina', created_date: 'April 23 2015'},
+				{name: 'Timothy', created_date: 'June 23 2015'},
+				{name: 'Justin', created_date: 'July 23 2015'},
+				{name: 'Zachary', created_date: 'August 23 2015'}
+			];
+			var factory = {};
+			factory.getCustomers = function(){
+				return customers;
+			}
+			return factory;
+		});
+		myApp.controller('Customers', function($scope, CustomerFactory){
+			$scope.customers = CustomerFactory.getCustomers();
+		});
+	</script>
+</body>
+</html>
